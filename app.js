@@ -6,6 +6,9 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const TodoTask = require("./models/entity/ToDoTask");
 
+var fs = require("fs");
+var Grid = require("gridfs-stream");
+
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const app = express();
@@ -13,6 +16,7 @@ const app = express();
 //use the stylesheets
 
 app.use("/static", express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 // Passport Config
 require("./config/passport")(passport);

@@ -1,5 +1,6 @@
 const todo = require("../entity/ToDoTask");
 const TodoTask = require("../../models/entity/ToDoTask");
+const recorder = require("../../models/entity/recorder");
 
 const getAllTodos = async (req, res) => {
   if (req.user.admin === true) {
@@ -7,6 +8,15 @@ const getAllTodos = async (req, res) => {
       .populate("user", "name -_id")
       .exec((err, tasks) => {
         return res.render("admin-dashboard.ejs", {
+          todoTasks: tasks,
+          displayName: req.user.name,
+        });
+      });
+  } else if (req.user.reviewer === true) {
+    const task = await TodoTask.find({})
+      .populate("user", "name -_id")
+      .exec((err, tasks) => {
+        return res.render("reviewer-dashboard.ejs", {
           todoTasks: tasks,
           displayName: req.user.name,
         });
@@ -23,12 +33,12 @@ const getAllTodos = async (req, res) => {
 };
 
 const createTodo = async function (req, res) {
-  const todoTask = await new TodoTask({
+  const recorder = await new TodoTask({
     content: req.body.content,
     user: req.user._id,
   });
   try {
-    await todoTask.save(function (err, doc) {
+    await recorder.save(function (err, doc) {
       if (err) throw err;
       console.log("item saved!", todoTask);
     });

@@ -1,94 +1,472 @@
 <!DOCTYPE html>
-<head>
-  <title>Todo App</title>
-  <link rel="stylesheet" href="/static/stylesheets/style.css" type="text/css" />
-  <link
-    href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Candal|Chewy&display=swap"
-    rel="stylesheet"
-  />
-  <link
-    rel="stylesheet"
-    href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay"
-    crossorigin="anonymous"
-  />
-</head>
-<body>
-  <nav
-    class="navbar navbar-expand-lg navbar-dark"
-    style="background-color: #33d464 !important"
-  >
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="#"
-            >Home <span class="sr-only">(current)</span></a
-          >
-        </li>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>iQuasar Project Cadence</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+      crossorigin="anonymous"
+    />
 
-        <li style="margin-left: 600px" class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdownMenuLink"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-          >
-            Welcome
-            <b><%= user.name %></b>
-          </a>
-          <div
-            class="dropdown-menu ml-auto"
-            aria-labelledby="navbarDropdownMenuLink"
-          >
-            <a
-              class="dropdown-item"
-              href="/users/logout"
-              class="btn btn-secondary"
-              >Logout</a
-            >
+    <link rel="stylesheet" type="text/css" href="css/styleRed.css" />
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" style="margin: 10px" href="/">
+          <img
+            src="https://iquasar.com/wp-content/uploads/2021/08/Logo_v2_final-02.svg"
+            alt="iQuasar"
+            style="width: 150px; height: 57px"
+          />
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          style="margin-left: 15px"
+        >
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" style="margin-left: 15px"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input
+              class="form-control mr-sm-2"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+            />
+          </form>
+          <a href="/users/logout" class="btn btn-danger my-2 my-lg-0">Logout</a>
+        </div>
+      </nav>
+      <div class="questions section">
+        <div id="question1" class="row">
+          <div class="col-md-6">
+            <h1>Question1</h1>
+            <div id="controls">
+              <button id="btnStart" onclick="startRecording(this);">
+                Record
+              </button>
+              <button
+                id="pauseButton1"
+                onclick="pauseRecording(this);"
+                disabled
+              >
+                Pause
+              </button>
+              <button id="btnStop" onclick="saveRecording(this);">Stop</button>
+            </div>
+            <button id="btnSave" onclick="saveRecording(this);">Save</button>
+            <div id="formats">Format: start recording to see sample rate</div>
+            <!-- <p><strong>Recordings:</strong></p>
+            <ol id="recordingsList"></ol> -->
           </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
 
-  <!-- <h1 class="mt-4">Dashboard</h1>
-  <p class="lead mb-3">Welcome <b><%= user.name %></b></p>
-  <a href="/users/logout" class="btn btn-secondary">Logout</a> -->
-  <div class="todo-container">
-    <h2>To-Do List</h2>
-    <div class="todo">
-      <form action="/dashboard" method="POST" class="todo-header">
-        <input type="text" name="content" required />
-        <button type="submit"><span class="fas fa-plus"></span></button>
-      </form>
-      <ul class="todo-list">
-        <% todoTasks.forEach(details => { %>
-        <li class="todo-list-item">
-          <div class="todo-list-item-name"><%= details.content %></div>
-          <a href="/edit/<%= details._id %>" class="edit">
-            <span class="fas fa-edit"></span>
-          </a>
-          <a href="/remove/<%= details._id %>" class="remove">
-            <span class="fas fa-times"></span>
-          </a>
-        </li>
-        <% }) %>
-      </ul>
+          <div class="col-md-6 row">
+            <video class="video-frame" src=""></video>
+            <video class="video-frame" controls>video saved</video>
+          </div>
+        </div>
+        <div id="question2" class="row">
+          <div class="col-md-6">
+            <h1>Question2</h1>
+            <div id="controls">
+              <button id="recordButton2" onclick="startRecording(this);">
+                Record
+              </button>
+              <button
+                id="pauseButton2"
+                onclick="pauseRecording(this);"
+                disabled
+              >
+                Pause
+              </button>
+              <button id="stopButton2" onclick="stopRecording(this);" disabled>
+                Stop
+              </button>
+            </div>
+            <div id="formats">Format: start recording to see sample rate</div>
+            <!-- <p><strong>Recordings:</strong></p>
+            <ol id="recordingsList"></ol> -->
+          </div>
+          <div class="col-md-6 row">
+            <video class="video-frame" src=""></video>
+            <video class="video-frame" controls>video saved</video>
+          </div>
+        </div>
+        <div id="question3" class="row">
+          <div class="col-md-6">
+            <h1>Question3</h1>
+            <div id="controls">
+              <button id="recordButton3" onclick="startRecording(this);">
+                Record
+              </button>
+              <button
+                id="pauseButton3"
+                onclick="pauseRecording(this);"
+                disabled
+              >
+                Pause
+              </button>
+              <button id="stopButton3" onclick="stopRecording(this);" disabled>
+                Stop
+              </button>
+            </div>
+            <div id="formats">Format: start recording to see sample rate</div>
+            <p><strong>Recordings:</strong></p>
+            <ol id="recordingsList"></ol>
+          </div>
+          <div class="col-md-6 row">
+            <video class="video-frame" src=""></video>
+            <video class="video-frame" controls>video saved</video>
+          </div>
+
+          <!-- <video controls></video>
+          <video id="vid2" controls></video> -->
+        </div>
+      </div>
+      <!-- <p><strong>Recordings:</strong></p>
+      <ol id="recordingsList"></ol>
+      <h2>Log</h2>
+      <pre id="log"></pre> -->
     </div>
-  </div>
-</body>
+    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+    <!-- <script src="js/recorder.js"></script> -->
+    <!-- <script src="js/app.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.js"
+      integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+      integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      let constraintObj = {
+        // audio: true,
+        audio: {
+          autoGainControl: false,
+          echoCancellation: false,
+          noiseSuppression: false,
+          // bufferLen: 4096,
+          // numChannels: 2,
+          // mimeType: 'audio/wav'
+        },
+        // video: false,
+        video: {
+          facingMode: "user",
+          //   facingMode: {
+          //     ideal: "environment" //user
+          // },
+          width: { min: 640, ideal: 1280, max: 1920 },
+          height: { min: 480, ideal: 720, max: 1080 },
+          frameRate: {
+            ideal: 60,
+            min: 10,
+          },
+          latency: 0.0,
+        },
+      };
+      // width: 1280, height: 720  -- preference only
+      // facingMode: {exact: "user"}
+      // facingMode: "environment"
+      // facingMode: "environment"
+      //handle older browsers that might implement getUserMedia in some way
+      async function getMediaStream() {
+        if (navigator.mediaDevices === undefined) {
+          navigator.mediaDevices = {};
+          navigator.mediaDevices.getUserMedia = function (constraintObj) {
+            let getUserMedia =
+              navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+            if (!getUserMedia) {
+              return Promise.reject(
+                new Error("getUserMedia is not implemented in this browser")
+              );
+            }
+            return new Promise(async function (resolve, reject) {
+              await getUserMedia.call(
+                navigator,
+                constraintObj,
+                resolve,
+                reject
+              );
+            });
+          };
+        } else {
+          navigator.mediaDevices
+            .enumerateDevices()
+            .then((devices) => {
+              devices.forEach((device) => {
+                console.log(device.kind.toUpperCase(), device.label),
+                  device.deviceId;
+              });
+            })
+            .catch((err) => {
+              console.log(err.name, err.message);
+            });
+        }
+      }
+
+      async function createMediaStreamAndRecoder(context) {
+        navigator.mediaDevices
+          .getUserMedia(constraintObj)
+          .then(function (mediaStreamObj) {
+            //connect the media stream to the first video element
+            let video = context.video; //document.querySelector("video");
+            if ("srcObject" in video) {
+              video.srcObject = mediaStreamObj;
+              mediaStreamObj.getTracks().forEach(function (track) {
+                console.log(track.getSettings());
+              });
+            } else {
+              //old version
+              video.src = window.URL.createObjectURL(mediaStreamObj);
+            }
+
+            video.onloadedmetadata = function (ev) {
+              //show in the video element what is being captured by the webcam
+              video.play();
+              video.volume = 0;
+            };
+
+            //add listeners for saving video/audio
+            let start = context.button; //document.getElementById("btnStart");
+            let stop = context.button.nextElementSibling.nextElementSibling; //document.getElementById("btnStop");
+            let vidSave = context.videoSave; //document.getElementById("vid2");
+            let mediaRecorder = new MediaRecorder(mediaStreamObj);
+            let chunks = [];
+            mediaRecorder.start();
+            start.addEventListener("click", (ev) => {
+              mediaRecorder.start();
+              console.log(mediaRecorder.state);
+            });
+            stop.addEventListener("click", (ev) => {
+              mediaRecorder.stop();
+              console.log(mediaRecorder.state);
+            });
+            mediaRecorder.ondataavailable = function (ev) {
+              chunks.push(ev.data);
+            };
+            mediaRecorder.onstop = (ev) => {
+              let video = vidSave; //document.querySelector("video");
+              let blob = new Blob(chunks, { type: "video/mp4;" });
+              chunks = [];
+              let videoURL = window.URL.createObjectURL(blob);
+              // vidSave.src = videoURL
+              video.src = videoURL;
+            };
+          })
+          .catch(function (err) {
+            console.log(err.name, err.message);
+          });
+      }
+
+      function startRecording(button) {
+        getMediaStream();
+        let context = {
+          button: button,
+          video: button.parentNode.parentNode.parentNode.querySelector("video"),
+          videoSave:
+            button.parentNode.parentNode.parentNode.querySelector("video")
+              .nextElementSibling,
+        };
+        Swal.fire({
+          title: "Recording is about to start",
+          text: "please press Ok to continue!",
+          icon: "success",
+          confirmButtonText: "Lets Begin",
+        });
+
+        try {
+          createMediaStreamAndRecoder(context);
+          button.disabled = true;
+          button.nextElementSibling.disabled = false;
+          button.nextElementSibling.nextElementSibling.disabled = false;
+          // console.log(context.id)
+          __log("recording...");
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      function pauseRecording(button) {
+        try {
+          // if (mRecorder.recording) {
+          //   //pause
+          //   mRecorder.stop()
+          //   __log('pause...')
+          //   console.log(mediaRecorder.state)
+          //   button.value = 'Resume'
+          // } else {
+          //   //resume
+          //   mediaRecorder.record()
+          //   console.log(mediaRecorder.state)
+          //   button.value = 'Pause'
+          // }
+
+          button.disabled = true;
+          button.previousElementSibling.disabled = false;
+          button.nextElementSibling.disabled = false;
+          console.log(context.id);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      function stopRecording(button) {
+        try {
+          // mRecorder.stop()
+          __log("Stopped recording.");
+
+          // create WAV download link using audio data blob
+
+          button.disabled = true;
+          button.previousElementSibling.disabled = true;
+          button.previousElementSibling.previousElementSibling.disabled = false;
+          console.log(button.id);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      function createDownloadLink(blob) {
+        var url = URL.createObjectURL(blob);
+        var au = document.createElement("audio");
+        var li = document.createElement("li");
+        var link = document.createElement("a");
+        var recordingsList = document.getElementById("recordingsList");
+
+        //name of .wav file to use during upload and download (without extendion)
+        var filename = new Date().toISOString();
+
+        //add controls to the <audio> element
+        au.controls = true;
+        au.src = url;
+
+        //save to disk link
+        link.href = url;
+        link.download = filename + ".wav"; //download forces the browser to donwload the file using the  filename
+        link.innerHTML = "Save to disk";
+
+        //add the new audio element to li
+        li.appendChild(au);
+
+        //add the filename to the li
+        li.appendChild(document.createTextNode(filename + ".wav "));
+
+        //add the save to disk link to li
+        li.appendChild(link);
+
+        // //upload link
+        // var upload = document.createElement('a');
+        // upload.href="#";
+        // upload.innerHTML = "Upload";
+        // upload.addEventListener("click", function(event){
+        // 	  var xhr=new XMLHttpRequest();
+        // 	  xhr.onload=function(e) {
+        // 	      if(this.readyState === 4) {
+        // 	          console.log("Server returned: ",e.target.responseText);
+        // 	      }
+        // 	  };
+        // 	  var fd=new FormData();
+        // 	  fd.append("audio_data",blob, filename);
+        // 	  xhr.open("POST","upload.php",true);
+        // 	  xhr.send(fd);
+        // })
+        li.appendChild(document.createTextNode(" ")); //add a space in between
+        // li.appendChild(upload)//add the upload link to li
+
+        //add the li element to the ol
+        recordingsList.appendChild(li);
+
+        ////////////////////////above is the changed code
+        // recorder && recorder.exportWAV(function(blob) {
+        // var url = URL.createObjectURL(blob);
+        // var li = document.createElement('li');
+        // var au = document.createElement('audio');
+        // var hf = document.createElement('a');
+
+        // au.controls = true;
+        // au.src = url;
+        // hf.href = url;
+        // hf.download = new Date().toISOString() + '.wav';
+        // hf.innerHTML = hf.download;
+        // li.appendChild(au);
+        // li.appendChild(hf);
+        // recordingslist.appendChild(li);
+
+        // });
+      }
+
+      function saveRecording(path, name, callback) {
+        console.log("inside the save recording");
+        var writestream = GridFS.createWriteStream({
+          filename: name,
+        });
+        writestream.on("close", function (file) {
+          callback(null, file);
+        });
+        fs.createReadStream(path).pipe(writestream);
+      }
+      try {
+        var readstream = GridFS.createReadStream({ _id: id });
+        readstream.pipe(res);
+      } catch (err) {
+        // log.error(err);
+        // // return next(errors.create(404, "File not found."));
+        console.log(err);
+      }
+    </script>
+  </body>
+</html>

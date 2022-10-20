@@ -25,6 +25,7 @@ const { getLandingPage } = require("./web/index");
 router.get("/", forwardAuthenticated, getLandingPage);
 router.get("/dashboard", ensureAuthenticated, getAllTodos);
 router.get("/admin-dashboard", ensureAuthenticated, getAllTodos);
+router.get("/reviewer-dashboard", ensureAuthenticated, getAllTodos);
 router.post("/dashboard", createTodo);
 router.route("/edit/:id").get(getTodo).post(editTodo);
 router.route("/remove/:id").get(deleteTodo);
@@ -33,6 +34,10 @@ router.route("/remove/:id").get(deleteTodo);
 
 router.get("/admin-dashboard", isAdmin, (req, res) =>
   res.render("admin-dashboard")
+);
+
+router.get("/reviewer-dashboard", isAdmin, (req, res) =>
+  res.render("reviewer-dashboard")
 );
 
 module.exports = router;

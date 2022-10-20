@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema(
       default: Date.now,
     },
     admin: Boolean,
+    reviewer: Boolean,
     google: {
       googleId: {
         type: String,
