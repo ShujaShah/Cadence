@@ -9,7 +9,7 @@ const app = express();
 app.use(passport.initialize());
 
 // Load User model
-const User = require("../models/entity/User");
+const User = require("../models/entity/Credentials");
 
 const googleClientId =
   "180692229496-et1kt037fjvhb3na1de8sgh9s99pu6ik.apps.googleusercontent.com";

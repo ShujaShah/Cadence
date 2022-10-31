@@ -5,7 +5,7 @@ const passport = require("passport");
 const app = express();
 
 // Load User model
-const User = require("../models/entity/User");
+const User = require("../models/entity/Credentials");
 const { forwardAuthenticated } = require("../config/auth");
 
 // Login Page
@@ -15,6 +15,8 @@ router.get("/login", forwardAuthenticated, (req, res) => res.render("login"));
 router.get("/register", forwardAuthenticated, (req, res) =>
   res.render("register")
 );
+
+
 
 // Register
 router.post("/register", (req, res) => {

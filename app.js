@@ -15,8 +15,8 @@ const app = express();
 
 //use the stylesheets
 
-app.use("/static", express.static("public"));
-app.use(express.static(__dirname + "/public"));
+//app.use("/static", express.static("public"));
+app.use(express.static("public"));
 
 // Passport Config
 require("./config/passport")(passport);

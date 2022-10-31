@@ -2,7 +2,7 @@ const todo = require("../entity/ToDoTask");
 const TodoTask = require("../../models/entity/ToDoTask");
 const recorder = require("../../models/entity/recorder");
 
-const getAllTodos = async (req, res) => {
+const getAllInterviews = async (req, res) => {
   if (req.user.admin === true) {
     const task = await TodoTask.find({})
       .populate("user", "name -_id")
@@ -23,7 +23,7 @@ const getAllTodos = async (req, res) => {
       });
   } else {
     TodoTask.find({ user: req.user._id }, (err, tasks) => {
-      res.render("todo.ejs", {
+      res.render("recorder.ejs", {
         todoTasks: tasks,
         user: req.user,
       });
@@ -79,7 +79,7 @@ const deleteTodo = async function (req, res) {
 };
 
 module.exports = {
-  getAllTodos,
+  getAllInterviews,
   createTodo,
   getTodo,
   editTodo,
